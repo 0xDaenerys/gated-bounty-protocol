@@ -5,7 +5,6 @@ import {Test, console} from "forge-std/Test.sol";
 import {Reputation} from "../src/Reputation.sol";
 
 contract ReputationTest is Test {
-
     Reputation public reputation;
     address private USER = makeAddr("USER");
 
@@ -50,12 +49,17 @@ contract ReputationTest is Test {
     }
 
     function test_Transfer() public {
+        reputation.mint(address(this), 5 ether);
         vm.expectRevert(Reputation.Reputation__TransferNotAllowed.selector);
         reputation.transfer(USER, 1 ether);
     }
 
     function test_TransferFrom() public {
+        reputation.mint(address(this), 5 ether);
+        // Approve owner itself to call TranserFrom
+        reputation.approve(address(this), 1 ether);
+        assertEq(reputation.balanceOf(address(this)), 5 ether);
         vm.expectRevert(Reputation.Reputation__TransferNotAllowed.selector);
-        reputation.transferFrom(USER, address(this), 1 ether);
+        reputation.transferFrom(address(this), USER, 1 ether);
     }
 }

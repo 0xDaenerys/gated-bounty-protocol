@@ -20,18 +20,16 @@ contract Reputation is ERC20, Ownable {
     }
 
     /// @notice - Burn reputation tokens
-    /// @dev - Event for burning - 1. Account deletion
+    /// @dev - Need for burning - Account deletion
     function burn() external {
         _burn(msg.sender, balanceOf(msg.sender));
     }
 
-    /// @notice - Reputation tokens can only be minted but not transferred
-    function transfer(address, /*to*/ uint256 /*amount*/ ) public pure override returns (bool) {
-        revert Reputation__TransferNotAllowed();
-    }
-
-    /// @notice - Reputation tokens can only be minted but not transferred
-    function transferFrom(address, /*from*/ address, /*to*/ uint256 /*amount*/ ) public pure override returns (bool) {
-        revert Reputation__TransferNotAllowed();
+    /// @notice - Override _update function to prevent transfer of reputation tokens
+    function _update(address from, address to, uint256 value) internal override {
+        if (from != address(0) && to != address(0)) {
+            revert Reputation__TransferNotAllowed();
+        }
+        super._update(from, to, value);
     }
 }
