@@ -1,4 +1,3 @@
-import React from 'react';
 import './App.css'
 import { WalletProvider } from './components'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';

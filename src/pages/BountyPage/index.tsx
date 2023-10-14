@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Layout } from "../../components/Layout";
 import { useParams } from "react-router-dom";
 import { IBounty, useAppContext } from "../../contexts/AppContext";
