@@ -9,6 +9,8 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 /// @title - Bounty contract
 /// @notice - Bounty contract for the bounty platform
 contract BountyFactory is Ownable {
+    error BountyFactory__UserAlreadyVerified();
+
     Reputation private immutable i_token;
     KnowYourHacker private immutable i_nft;
     address[] private _bounties;
@@ -19,19 +21,29 @@ contract BountyFactory is Ownable {
         i_nft = new KnowYourHacker();
     }
 
-    function createBounty() external {
-        // TODO : Create a Bounty
-        // 1. Deploy new contract
-        // 2. Should have a bounty price, bounty level ( will use to fix reputation tokens to be given out )
-        // 3. Should have a bounty metaData
-        // 4. Should have details related to gating related to tokens ( Note :- Bounty created can have gating upto max reputation points that he/she holds and also KYH if he/she has KYH NFT )
-        // 5. Maintain states that bounty is open, completed, winner declared ( Note :- Winner declared can be done by bounty creator or by bounty factory contract )
+    function verifyUser(string memory userName) external {
+        if(i_nft.balanceOf(msg.sender) > 0){
+            revert BountyFactory__UserAlreadyVerified();
+        }
+        i_nft.mint(msg.sender, userName);
+        i_token.mint(msg.sender, 200);
     }
 
-    function declareBountyWinner(address BountyAddress, address winner) external {
-        // TODO : Declare bounty winner of the specified bounty address
-        // Can be called by bounty creator or this contract only
-        // also transfers the reputation points to the winner
+    function createBounty(
+        uint256 requiredReputation,
+        bool requiredKYH,
+        string memory metadata,
+        uint256 startTime,
+        uint256 endTime
+    ) external {
+        Bounty bounty =
+        new Bounty(msg.sender, requiredReputation,  requiredKYH, metadata, startTime, endTime, address(i_token), address(i_nft));
+        _bounties.push(address(bounty));
+    }
+
+    function declareBountyWinner(address BountyAddress, address payable winner) external onlyOwner(){
+        Bounty bounty = Bounty(BountyAddress);
+        bounty.declareWinner(winner);
     }
 
     /**
