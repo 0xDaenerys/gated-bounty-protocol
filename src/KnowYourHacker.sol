@@ -13,7 +13,8 @@ contract KnowYourHacker is ERC721, Ownable {
     uint256 private _nextTokenId;
     mapping(address owner => uint256 tokenId) private _ownerToTokenId;
     mapping(uint256 tokenId => string tokenURI) private _tokenIdToURI;
-    string private constant IMAGEURI = "ipfs://bafybeieqa3lrf3viuj5rkuhoiy2vitpz4yxmndk4v52kdh4jp544cw55va/Verification_Badge.png";
+    string private constant IMAGEURI =
+        "ipfs://bafybeieqa3lrf3viuj5rkuhoiy2vitpz4yxmndk4v52kdh4jp544cw55va/Verification_Badge.png";
 
     constructor() ERC721("KnowYourHacker", "KYH") Ownable(msg.sender) {
         _nextTokenId = 1;

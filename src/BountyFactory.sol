@@ -11,6 +11,7 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 contract BountyFactory is Ownable {
     Reputation private immutable i_token;
     KnowYourHacker private immutable i_nft;
+    address[] private _bounties;
 
     constructor() Ownable(msg.sender) {
         /// @dev Bounty contract is owner of reputation erc20 token and KYH erc721 token
@@ -27,13 +28,10 @@ contract BountyFactory is Ownable {
         // 5. Maintain states that bounty is open, completed, winner declared ( Note :- Winner declared can be done by bounty creator or by bounty factory contract )
     }
 
-    function batchDistributeBounty() external {
-        // TODO : Checks all bounties whose winner is declared and distribute them the reward amount and also reputation tokens ( acc to bounty level )
-        // This fn will be called by Chainlink Automation
-    }
-
-    function declareBountyWinner(address BountyAddress, address winner) external onlyOwner {
+    function declareBountyWinner(address BountyAddress, address winner) external {
         // TODO : Declare bounty winner of the specified bounty address
+        // Can be called by bounty creator or this contract only
+        // also transfers the reputation points to the winner
     }
 
     /**
@@ -45,5 +43,9 @@ contract BountyFactory is Ownable {
 
     function getKYHTokenAddress() external view returns (address) {
         return address(i_nft);
+    }
+
+    function getAllBounties() external view returns (address[] memory) {
+        return _bounties;
     }
 }
