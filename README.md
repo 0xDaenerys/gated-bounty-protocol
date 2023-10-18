@@ -1,1 +1,2 @@
 # Gated Bounty Protocol
+.
