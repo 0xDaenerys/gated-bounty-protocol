@@ -22,7 +22,7 @@ contract BountyFactory is Ownable {
     }
 
     function verifyUser(string memory userName) external {
-        if(i_nft.balanceOf(msg.sender) > 0){
+        if (i_nft.balanceOf(msg.sender) > 0) {
             revert BountyFactory__UserAlreadyVerified();
         }
         i_nft.mint(msg.sender, userName);
@@ -34,14 +34,15 @@ contract BountyFactory is Ownable {
         bool requiredKYH,
         string memory metadata,
         uint256 startTime,
-        uint256 endTime
+        uint256 endTime,
+        string memory groupChatId
     ) external {
         Bounty bounty =
-        new Bounty(msg.sender, requiredReputation,  requiredKYH, metadata, startTime, endTime, address(i_token), address(i_nft));
+        new Bounty(msg.sender, requiredReputation,  requiredKYH, metadata, startTime, endTime, address(i_token), address(i_nft), groupChatId);
         _bounties.push(address(bounty));
     }
 
-    function declareBountyWinner(address BountyAddress, address payable winner) external onlyOwner(){
+    function declareBountyWinner(address BountyAddress, address payable winner) external onlyOwner {
         Bounty bounty = Bounty(BountyAddress);
         bounty.declareWinner(winner);
     }

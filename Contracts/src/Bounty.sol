@@ -32,6 +32,7 @@ contract Bounty is Ownable {
 
     uint256 private constant MIN_INTERMEDIATE_REPUTATION = 200;
     uint256 private constant MIN_ADVANCE_REPUTATION = 500;
+    string private _groupChatId;
     address private immutable i_reputationToken;
     address private immutable i_kyhToken;
     /// @dev - Resolves disputes in case of Bounty winneer declaration
@@ -54,7 +55,8 @@ contract Bounty is Ownable {
         uint256 startTime,
         uint256 endTime,
         address reputationToken,
-        address kyhToken
+        address kyhToken,
+        string memory groupChatId
     ) Ownable(creator) {
         if (startTime < block.timestamp) {
             revert Bounty__InvalidStartTime();
@@ -77,6 +79,7 @@ contract Bounty is Ownable {
         _startTime = startTime;
         _endTime = endTime;
         _state = State.Active;
+        _groupChatId = groupChatId;
         _decideBountyLevel();
     }
 
@@ -169,5 +172,9 @@ contract Bounty is Ownable {
 
     function getBountyRewardPrice() external view returns (uint256) {
         return address(this).balance;
+    }
+
+    function getBountyGroupChatId() external view returns (string memory) {
+        return _groupChatId;
     }
 }
