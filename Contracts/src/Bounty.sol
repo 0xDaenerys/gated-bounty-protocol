@@ -57,7 +57,7 @@ contract Bounty is Ownable {
         address reputationToken,
         address kyhToken,
         string memory groupChatId
-    ) Ownable(creator) {
+    ) payable Ownable(creator) {
         if (startTime < block.timestamp) {
             revert Bounty__InvalidStartTime();
         }

@@ -16,5 +16,12 @@ deploy:
 deploy-goerli:
 	@forge script script/DeployBountyFactory.s.sol:DeployBountyFactory --rpc-url $(GOERLI_RPC_URL) --private-key $(PRIVATE_KEY) --broadcast --verify --etherscan-api-key $(ETHERSCAN_API_KEY) -vvvv
 
-deploy-sepolia:
-	@forge script script/DeployBountyFactory.s.sol:DeployBountyFactory --rpc-url $(SEPOLIA_RPC_URL) --private-key $(PRIVATE_KEY) --broadcast --verify --etherscan-api-key $(ETHERSCAN_API_KEY) -vvvv
+deploy-polygon-mumbai:
+	@forge script script/DeployBountyFactory.s.sol:DeployBountyFactory --rpc-url $(POLYGON_MUMBAI_RPC_URL) --private-key $(PRIVATE_KEY) --broadcast --verify --etherscan-api-key $(POLYGONSCAN_API_KEY) -vvvv
+
+deploy-scroll-sepolia:
+	@forge script script/DeployBountyFactory.s.sol:DeployBountyFactory --rpc-url $(SCROLL_SEPOLIA_RPC_URL) --legacy --private-key $(PRIVATE_KEY) --broadcast
+
+deploy-mantle-testnet:
+	@forge script script/DeployBountyFactory.s.sol:DeployBountyFactory --rpc-url $(MANTLE_TESTNET_RPC_URL) --legacy --private-key $(PRIVATE_KEY) --broadcast
+

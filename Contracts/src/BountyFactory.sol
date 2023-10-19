@@ -36,9 +36,9 @@ contract BountyFactory is Ownable {
         uint256 startTime,
         uint256 endTime,
         string memory groupChatId
-    ) external {
+    ) external payable {
         Bounty bounty =
-        new Bounty(msg.sender, requiredReputation,  requiredKYH, metadata, startTime, endTime, address(i_token), address(i_nft), groupChatId);
+        new Bounty{value: msg.value}(msg.sender, requiredReputation,  requiredKYH, metadata, startTime, endTime, address(i_token), address(i_nft), groupChatId);
         _bounties.push(address(bounty));
     }
 
