@@ -1,7 +1,7 @@
 import {
   scrollSepolia,
   mantleTestnet,
-  sepolia,
+  goerli,
   polygonMumbai
 } from "wagmi/chains";
 
@@ -18,6 +18,6 @@ const _MantleTestnet = {
 export { 
   _ScrollSepolia, 
   _MantleTestnet, 
-  sepolia as _Sepolia, 
+  goerli as _Goerli, 
   polygonMumbai as _PolygonMumbai 
 };

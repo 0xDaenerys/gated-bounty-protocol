@@ -6,13 +6,13 @@ import {
   _ScrollSepolia,
   _MantleTestnet,
   _PolygonMumbai,
-  _Sepolia
+  _Goerli
 } from "./chains";
 import { customTheme } from "./theme";
 import { RainbowKitProvider, getDefaultWallets } from "@rainbow-me/rainbowkit";
 
 const { chains, publicClient } = configureChains(
-  [_Sepolia, _PolygonMumbai, _ScrollSepolia, _MantleTestnet],
+  [_Goerli, _PolygonMumbai, _ScrollSepolia, _MantleTestnet],
   [publicProvider()]
 );
 
