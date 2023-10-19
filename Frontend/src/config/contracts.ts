@@ -1,4 +1,10 @@
-export const CONTRACTS = {
+export const CONTRACTS: {
+    [x: number]: {
+        bountyFactory: `0x${string}`,
+        erc20Reputation: `0x${string}`,
+        erc721KYH: `0x${string}`,
+    }
+} = {
   5: {
     bountyFactory: '0x9C96F9931244e91D5858414A57533356548aa8D5',
     erc20Reputation: '0xef79c2Fc9CF73A0A928D1cbE78dbE185160771D6',

@@ -1,4 +1,8 @@
-import React, { Dispatch, SetStateAction, createContext, useContext, useState } from 'react';
+import React, { Dispatch, SetStateAction, createContext, useContext, useEffect, useState } from 'react';
+import { useNetwork } from 'wagmi';
+import { CONTRACTS } from '../config';
+import { readContract } from 'wagmi/actions';
+import { BountyFactoryAbi } from '../abi';
 
 export interface IBounty {
     id: string;
@@ -93,6 +97,21 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   // Define your state and functions
   const [activeBounties, setActiveBounties] = useState(activeBountiesList);
   const [finishedBounties, setFinishedBounties] = useState(finishedBountiesList);
+  const { chain } = useNetwork();
+
+  useEffect(() => {
+    if(!chain || (chain && chain.unsupported)) return;
+    
+    (async function() {
+      const bountiesData = await readContract({
+        address: CONTRACTS[chain.id].bountyFactory,
+        abi: BountyFactoryAbi,
+        functionName: 'getAllBounties',
+      });
+
+      console.log(bountiesData);
+    }())
+  }, [chain]);
 
   // Define the context value
   const contextValue: AppContextValue = {
