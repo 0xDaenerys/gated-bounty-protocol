@@ -14,7 +14,7 @@
     "clean": "gh-pages-clean"
   },
   "dependencies": {
-    "@pushprotocol/restapi": "^1.4.23",
+    "@pushprotocol/restapi": "^1.4.28",
     "@pushprotocol/uiweb": "^1.1.14",
     "@rainbow-me/rainbowkit": "^1.1.1",
     "buffer": "^6.0.3",
