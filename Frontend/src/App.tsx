@@ -1,10 +1,10 @@
 import './App.css'
 import { WalletProvider } from './components'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouterProvider, createHashRouter } from 'react-router-dom';
 import { BountiesPage, BountyCreationPage, BountyPage, HomePage, ProfilePage } from './pages';
-import AppProvider from './contexts/AppContext';
+import { AppProvider } from './contexts/AppContext';
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     element: <HomePage />,
