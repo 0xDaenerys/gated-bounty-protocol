@@ -72,26 +72,28 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
 
   useEffect(() => {
     if (!chain || (chain && chain.unsupported)) return;
-
+  
     (async function () {
       const bountiesData: any = await readContract({
         address: CONTRACTS[chain.id].bountyFactory,
         abi: BountyFactoryAbi,
         functionName: 'getAllBounties',
       });
-
-
+  
       const bountiesList: { [x: `0x${string}`]: IBounty } = {};
       const activeBountiesList: Array<IBounty> = [];
       const upcomingBountiesList: Array<IBounty> = [];
       const finishedBountiesList: Array<IBounty> = [];
-      bountiesData.map(async (address: `0x${string}`) => {
+  
+      // Use map instead of forEach and collect promises in an array
+      const promises = bountiesData.map(async (address: `0x${string}`) => {
         if (address == '0x2cC80b80f33B600B6f11aa831eA58A41739Eb0e9') return;
+  
         const bountyContract: any = {
           address: address,
           abi: BountyAbi
         };
-
+  
         const contractData = await readContracts({
           contracts: [
             {
@@ -128,7 +130,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
             },
           ]
         });
-      
+  
         const bounty: IBounty = {
           id: address,
           name: JSON.parse(contractData[0].result as any).name,
@@ -141,7 +143,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
           isKYHRequired: contractData[4].result as any,
           groupChatId: contractData[6].result as any
         };
-
+  
         const currentTimestamp = Date.now();
         if (currentTimestamp > bounty.endTimestamp) {
           finishedBountiesList.push(bounty);
@@ -153,14 +155,18 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
           activeBountiesList.push(bounty);
           console.log(activeBountiesList);
         }
-
+  
         bountiesList[address] = bounty;
-      })
+      });
+  
+      // Wait for all promises to resolve
+      await Promise.all(promises);
+  
       setActiveBounties(activeBountiesList);
       setFinishedBounties(finishedBountiesList);
       setUpcomingBounties(upcomingBountiesList);
       setBountiesObj(bountiesList);
-    }())
+    })();
   }, [chain]);
 
   // Define the context value
