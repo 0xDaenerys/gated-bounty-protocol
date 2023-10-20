@@ -109,7 +109,6 @@ export const BountyPage = () => {
           <div className="h-[600px] my-10">
             <ChatViewComponent 
               chatId={bountyData.groupChatId}
-              isConnected={address ? true : false}
             />
           </div>
         </div>
