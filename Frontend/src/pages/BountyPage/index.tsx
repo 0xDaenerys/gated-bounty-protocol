@@ -5,13 +5,14 @@ import { IBounty, useAppContext } from "../../contexts/AppContext";
 import { timestampToDateTimeStrings } from "../../helpers";
 import { formatEther } from "viem";
 import { CURRENCY } from "../../config/chains";
-import { useNetwork } from "wagmi";
+import { useAccount, useNetwork } from "wagmi";
 import { ChatViewComponent } from '@pushprotocol/uiweb';
 
 export const BountyPage = () => {
   const { bounties } = useAppContext(); // Use the AppContext to access data
   const { bountyId } = useParams(); // Get the bountyId from the URL
   const { chain } = useNetwork();
+  const { address } = useAccount()
   const [isLoading, setIsLoading] = useState(true);
   const [bountyData, setBountyData] = useState<IBounty>({} as IBounty);
   const [bountyStatus, setBountyStatus] = useState('');
@@ -105,7 +106,12 @@ export const BountyPage = () => {
               }
             </div>
           </div>
-          <ChatViewComponent chatId="4ac5ab85c9c3d57adbdf2dba79357e56b2f9ef0256befe750d9f93af78d2ca68" />
+          <div className="h-[600px] my-10">
+            <ChatViewComponent 
+              chatId="4ac5ab85c9c3d57adbdf2dba79357e56b2f9ef0256befe750d9f93af78d2ca68" 
+              isConnected={address ? true : false}
+            />
+          </div>
         </div>
       )}
     </Layout>
