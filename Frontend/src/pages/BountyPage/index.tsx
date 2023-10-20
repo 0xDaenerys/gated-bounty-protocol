@@ -5,14 +5,15 @@ import { IBounty, useAppContext } from "../../contexts/AppContext";
 import { timestampToDateTimeStrings } from "../../helpers";
 import { formatEther } from "viem";
 import { CURRENCY } from "../../config/chains";
-import { useAccount, useNetwork } from "wagmi";
-import { ChatViewComponent } from '@pushprotocol/uiweb';
+import { useAccount, useNetwork, useWalletClient } from "wagmi";
+import { ChatUIProvider, ChatViewComponent } from '@pushprotocol/uiweb';
 
 export const BountyPage = () => {
   const { bounties } = useAppContext(); // Use the AppContext to access data
   const { bountyId } = useParams(); // Get the bountyId from the URL
   const { chain } = useNetwork();
-  const { address } = useAccount()
+  const { address } = useAccount();
+  const { data: walletClient } = useWalletClient();
   const [isLoading, setIsLoading] = useState(true);
   const [bountyData, setBountyData] = useState<IBounty>({} as IBounty);
   const [bountyStatus, setBountyStatus] = useState('');
@@ -107,9 +108,13 @@ export const BountyPage = () => {
             </div>
           </div>
           <div className="h-[600px] my-10">
-            <ChatViewComponent 
-              chatId={bountyData.groupChatId}
-            />
+            {address && walletClient &&
+              <ChatUIProvider account={address} signer={walletClient}>
+                <ChatViewComponent 
+                  chatId={bountyData.groupChatId}
+                />
+              </ChatUIProvider>
+            }
           </div>
         </div>
       )}

@@ -1,7 +1,5 @@
 import { RouterProvider, createHashRouter } from 'react-router-dom';
 import { BountiesPage, BountyCreationPage, BountyPage, HomePage, ProfilePage } from './pages';
-import { ChatUIProvider } from '@pushprotocol/uiweb';
-import { useAccount, useWalletClient } from 'wagmi';
 
 const router = createHashRouter([
   {
@@ -27,16 +25,5 @@ const router = createHashRouter([
 ]);
 
 export const Interface = () => {
-    const { address } = useAccount();
-    const { data: walletClient } = useWalletClient();
-
-    return (
-        (address && walletClient) 
-            ?  
-        <ChatUIProvider account={address} signer={walletClient}>
-          <RouterProvider router={router} />
-        </ChatUIProvider>
-            :
-        <RouterProvider router={router} />
-    )
+    return <RouterProvider router={router} />
 };
