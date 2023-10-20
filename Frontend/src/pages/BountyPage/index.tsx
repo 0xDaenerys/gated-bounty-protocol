@@ -3,10 +3,15 @@ import { Layout } from "../../components/Layout";
 import { useParams } from "react-router-dom";
 import { IBounty, useAppContext } from "../../contexts/AppContext";
 import { timestampToDateTimeStrings } from "../../helpers";
+import { formatEther } from "viem";
+import { CURRENCY } from "../../config/chains";
+import { useNetwork } from "wagmi";
+import { ChatViewComponent } from '@pushprotocol/uiweb';
 
 export const BountyPage = () => {
-  const { activeBounties, finishedBounties } = useAppContext(); // Use the AppContext to access data
+  const { bounties } = useAppContext(); // Use the AppContext to access data
   const { bountyId } = useParams(); // Get the bountyId from the URL
+  const { chain } = useNetwork();
   const [isLoading, setIsLoading] = useState(true);
   const [bountyData, setBountyData] = useState<IBounty>({} as IBounty);
   const [bountyStatus, setBountyStatus] = useState('');
@@ -24,22 +29,22 @@ export const BountyPage = () => {
 
   useEffect(() => {
     if (!bountyId) return;
-    // Check if the bountyId exists in activeBounties
-    if (activeBounties[bountyId]) {
-      setBountyData(activeBounties[bountyId]);
-      setBountyStatus("Active");
-      setIsLoading(false);
-      return;
-    }
 
-    // Check if the bountyId exists in finishedBounties
-    if (finishedBounties[bountyId]) {
-      setBountyData(finishedBounties[bountyId]);
-      setBountyStatus("Finished");
+    // Check if the bountyId exists in bounties
+    if (bounties[bountyId]) {
+      const bountyData = bounties[bountyId];
+      setBountyData(bounties[bountyId]);
+      const currentTimestamp = Date.now();
+      if (currentTimestamp > bountyData.endTimestamp) {
+        setBountyStatus("Finished");
+      } else if (currentTimestamp < bountyData.startTimestamp) {
+        setBountyStatus("Upcoming");
+      } else {
+        setBountyStatus("Active");
+      }
       setIsLoading(false);
-      return;
     }
-  }, [activeBounties, finishedBounties, bountyId]);
+  }, [bounties, bounties, bountyId]);
 
   return (
     <Layout>
@@ -59,9 +64,9 @@ export const BountyPage = () => {
                 <span className="text-5xl font-bold text-colorPrimaryLight">Bounty Details</span>
                 <span className="text-2xl font-bold text-colorPrimaryLight pt-8"><span className="text-white font-medium">Name:</span> {bountyData.name}</span>
                 <span className="text-2xl font-bold text-colorPrimaryLight"><span className="text-white font-medium">Description:</span> {bountyData.description}</span>
-                <span className="text-2xl font-bold text-colorPrimaryLight"><span className="text-white font-medium">Rewards:</span> {bountyData.rewards}</span>
-                <span className="text-2xl font-bold text-colorPrimaryLight"><span className="text-white font-medium">Start Timeme:</span> {timestampToDateTimeStrings(bountyData.startTimestamp).date}, {timestampToDateTimeStrings(bountyData.startTimestamp).time}</span>
-                <span className="text-2xl font-bold text-colorPrimaryLight"><span className="text-white font-medium">End Time</span> {timestampToDateTimeStrings(bountyData.endTimestamp).date}, {timestampToDateTimeStrings(bountyData.endTimestamp).time}</span>
+                <span className="text-2xl font-bold text-colorPrimaryLight"><span className="text-white font-medium">Rewards:</span> {formatEther(bountyData.rewards)} {chain && chain.unsupported === false && CURRENCY[chain?.id]}</span>
+                <span className="text-2xl font-bold text-colorPrimaryLight"><span className="text-white font-medium">Start Time:</span> {timestampToDateTimeStrings(bountyData.startTimestamp).date}, {timestampToDateTimeStrings(bountyData.startTimestamp).time}</span>
+                <span className="text-2xl font-bold text-colorPrimaryLight"><span className="text-white font-medium">End Time:</span> {timestampToDateTimeStrings(bountyData.endTimestamp).date}, {timestampToDateTimeStrings(bountyData.endTimestamp).time}</span>
                 <span className="text-2xl font-bold text-colorPrimaryLight"><span className="text-white font-medium">Status:</span> {bountyStatus}</span>
               </div>
             </div>
@@ -100,6 +105,7 @@ export const BountyPage = () => {
               }
             </div>
           </div>
+          <ChatViewComponent chatId="4ac5ab85c9c3d57adbdf2dba79357e56b2f9ef0256befe750d9f93af78d2ca68" />
         </div>
       )}
     </Layout>

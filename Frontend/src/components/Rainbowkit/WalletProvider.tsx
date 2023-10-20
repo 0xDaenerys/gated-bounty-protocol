@@ -18,7 +18,7 @@ const { chains, publicClient } = configureChains(
 
 const { connectors } = getDefaultWallets({
   appName: "EthOnline Hack",
-  projectId: `${process.env.REACT_APP_WC_PROJECT_ID}`,
+  projectId: `${import.meta.env.VITE_REACT_APP_WC_PROJECT_ID}`,
   chains,
 });
 

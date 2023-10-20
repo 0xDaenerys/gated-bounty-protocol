@@ -1,25 +1,21 @@
-import { useMemo } from "react";
+import { useContext, useMemo } from "react";
 import { Layout } from "../../components/Layout";
 import { timestampToDateTimeStrings } from "../../helpers";
-import { useAppContext } from "../../contexts/AppContext";
+import { AppContext, IBounty } from "../../contexts/AppContext";
 import { useNavigate } from "react-router-dom";
+import { formatEther } from "viem";
+import { CURRENCY } from "../../config/chains";
+import { useNetwork } from "wagmi";
 
 export const BountyRow = ({ bounty, index }: { 
-  bounty: { 
-    id: string,
-    name: string;
-    description: string;
-    rewards: string;
-    creator: string;
-    startTimestamp: number;
-    endTimestamp: number; 
-  }, 
+  bounty: IBounty
   index: number
 }) => {
   const navigate = useNavigate();
   const { id, name, description, rewards, startTimestamp, endTimestamp } = bounty;
   const { date: startDate, time: startTime } = timestampToDateTimeStrings(startTimestamp);
   const { date: endDate, time: endTime } = timestampToDateTimeStrings(endTimestamp);
+  const { chain } = useNetwork();
 
   const handleNavigate = useMemo(
     () => (id: string) => {
@@ -35,11 +31,11 @@ export const BountyRow = ({ bounty, index }: {
       onClick={() => handleNavigate(id)}
     >
       <span className="min-w-max font-bold text-xl">{index}</span>
-      <div className="flex flex-col text-left ">
+      <div className="flex flex-col text-left grow">
         <span className="font-bold text-xl">{name}</span>
         <span>{description}</span>
       </div>
-      <span className="min-w-max font-bold text-xl">{rewards}</span>
+      <span className="min-w-max font-bold text-xl">{formatEther(rewards)} {chain && chain.unsupported === false && CURRENCY[chain?.id]}</span>
       <div className="flex flex-col min-w-max">
         <span className="font-bold text-xl">{startDate}</span>
         <span>{startTime}</span>
@@ -53,7 +49,9 @@ export const BountyRow = ({ bounty, index }: {
 }
 
 export const BountiesPage = () => {
-  const { activeBounties, finishedBounties } = useAppContext();
+  const { activeBounties, finishedBounties, upcomingBounties } = useContext(AppContext);
+
+  console.log(upcomingBounties);
 
   return (
     <Layout>
@@ -62,27 +60,40 @@ export const BountiesPage = () => {
           <span className="text-3xl font-extrabold pb-6 text-left text-colorPrimaryLight">ACTIVE</span>
           <div className="flex text-colorPrimaryLight font-bold text-lg">
             <span className="mr-7">S.No</span>
-            <span className="text-left mr-[605px]">Bounty</span>
-            <span className="mr-[82px]">Rewards</span>
-            <span className="mr-[100px]">Started</span>
-            <span>Ends</span>
+            <span className="text-left pr-[560px]">Bounty</span>
+            <span className="pr-[82px]">Rewards</span>
+            <span className="pr-[100px]">Started</span>
+            <span className="pr-[50px]">Ends</span>
           </div>
           {
-            Object.values(activeBounties).map((bounty, index) => <BountyRow bounty={bounty} index={index} />)
+            activeBounties.map((bounty, index) => <BountyRow bounty={bounty} index={index} />)
           }
         </div>
+        <div className="flex flex-col py-5 gap-5 px-7 bg-colorSecondaryDark rounded-lg mb-10 mx-auto">
+          <span className="text-3xl font-extrabold pb-6 text-left text-colorPrimaryLight">UPCOMING</span>
+          <div className="flex text-colorPrimaryLight font-bold text-lg">
+            <span className="pr-7">S.No</span>
+            <span className="text-left pr-[560px]">Bounty</span>
+            <span className="pr-[82px]">Rewards</span>
+            <span className="pr-[100px]">Started</span>
+            <span className="pr-[50px]">Ends</span>
+          </div>
+          {
+            upcomingBounties.map((bounty, index) => <BountyRow bounty={bounty} index={index} />)
+          }
+        </div> 
         <div className="flex flex-col py-5 gap-5 px-7 bg-colorSecondaryDark rounded-lg mb-10 mx-auto">
           <span className="text-3xl font-extrabold pb-6 text-left text-colorPrimaryLight">FINISHED</span>
           <div className="flex text-colorPrimaryLight font-bold text-lg">
             <span className="mr-7">S.No</span>
-            <span className="text-left mr-[605px]">Bounty</span>
-            <span className="mr-[82px]">Rewards</span>
-            <span className="mr-[100px]">Started</span>
-            <span>Ended</span>
+            <span className="text-left pr-[560px]">Bounty</span>
+            <span className="pr-[82px]">Rewards</span>
+            <span className="pr-[100px]">Started</span>
+            <span className="pr-[50px]">Ended</span>
           </div>
           <div className="flex flex-col gap-5 opacity-50">
             {
-              Object.values(finishedBounties).map((bounty, index) => <BountyRow bounty={bounty} index={index} />)
+              finishedBounties.map((bounty, index) => <BountyRow bounty={bounty} index={index} />)
             }
           </div>
         </div> 
