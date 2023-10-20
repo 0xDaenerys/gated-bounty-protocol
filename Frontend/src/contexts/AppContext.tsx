@@ -14,6 +14,7 @@ export interface IBounty {
   endTimestamp: number;
   requiredReputationToken: number;
   isKYHRequired: boolean;
+  groupChatId: string;
 };
 
 export type BountiesList = Record<string, IBounty>;
@@ -138,6 +139,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
           endTimestamp: Number(contractData[2].result),
           requiredReputationToken: Number(contractData[3].result),
           isKYHRequired: contractData[4].result as any,
+          groupChatId: contractData[6].result as any
         };
 
         const currentTimestamp = Date.now();
