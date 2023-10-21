@@ -76,7 +76,7 @@ export const useFetchBountiesData = () => {
                 },
                 {
                   ...bountyContract,
-                  functionName: 'getWinnerAddress'
+                  functionName: 'getWinner'
                 },
                 {
                   ...bountyContract,
