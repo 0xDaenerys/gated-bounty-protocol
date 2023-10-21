@@ -27,7 +27,7 @@ contract BountyFactory is Ownable {
             revert BountyFactory__UserAlreadyVerified();
         }
         i_nft.mint(msg.sender, userName);
-        i_token.mint(msg.sender, 200);
+        i_token.mint(msg.sender, 200 * 10 ** 18);
     }
 
     function createBounty(

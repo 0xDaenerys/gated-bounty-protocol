@@ -47,6 +47,7 @@ contract Bounty is Ownable {
     uint256 private _startTime;
     uint256 private _endTime;
     Submission[] private submissionList;
+    address private _winner;
 
     constructor(
         address creator,
@@ -116,15 +117,16 @@ contract Bounty is Ownable {
         if (!_addressIncludedInSubmissions(hacker)) {
             revert Bounty__InvalidWinner();
         }
+        _winner = hacker;
         _state = State.Completed;
         Reputation reputation = Reputation(i_reputationToken);
 
         if (_level == Level.Beginner) {
-            reputation.mint(hacker, 100);
+            reputation.mint(hacker, 100 * 10 ** 18);
         } else if (_level == Level.Intermediate) {
-            reputation.mint(hacker, 3000);
+            reputation.mint(hacker, 300 * 10 ** 18);
         } else {
-            reputation.mint(hacker, 500);
+            reputation.mint(hacker, 500 * 10 ** 18);
         }
 
         // Use the call method to transfer the funds
@@ -193,5 +195,9 @@ contract Bounty is Ownable {
 
     function getBountySubmissions() external view returns (Submission[] memory) {
         return submissionList;
+    }
+
+    function getWinner() external view returns (address) {
+        return _winner;
     }
 }
