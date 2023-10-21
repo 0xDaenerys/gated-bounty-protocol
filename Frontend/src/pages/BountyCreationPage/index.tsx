@@ -123,7 +123,7 @@ export const BountyCreationPage = () => {
 
       // Create Bounty Group
       const user = await PushAPI.initialize(walletClient as SignerType, {
-        env: ENV.PROD,
+        env: ENV.STAGING,
       })
 
       if (chainId !== 5 && chainId !== 80001) {
