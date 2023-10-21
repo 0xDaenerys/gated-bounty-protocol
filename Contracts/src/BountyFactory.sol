@@ -10,6 +10,7 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 /// @notice - Bounty contract for the bounty platform
 contract BountyFactory is Ownable {
     error BountyFactory__UserAlreadyVerified();
+    error BountyFactory__UnauthorizedAccess();
 
     Reputation private immutable i_token;
     KnowYourHacker private immutable i_nft;
@@ -42,8 +43,11 @@ contract BountyFactory is Ownable {
         _bounties.push(address(bounty));
     }
 
-    function declareBountyWinner(address BountyAddress, address payable winner) external onlyOwner {
+    function declareBountyWinner(address BountyAddress, address payable winner) external {
         Bounty bounty = Bounty(BountyAddress);
+        if (msg.sender != bounty.owner() || msg.sender != owner()) {
+            revert BountyFactory__UnauthorizedAccess();
+        }
         bounty.declareWinner(winner);
     }
 

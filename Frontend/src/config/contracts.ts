@@ -1,30 +1,30 @@
 export const CONTRACTS: {
-    [x: number]: {
-        bountyFactory: `0x${string}`,
-        erc20Reputation: `0x${string}`,
-        erc721KYH: `0x${string}`,
-    }
+  [x: number]: {
+    bountyFactory: `0x${string}`
+    erc20Reputation: `0x${string}`
+    erc721KYH: `0x${string}`
+  }
 } = {
   5: {
-    bountyFactory: '0x9C96F9931244e91D5858414A57533356548aa8D5',
-    erc20Reputation: '0xef79c2Fc9CF73A0A928D1cbE78dbE185160771D6',
-    erc721KYH: '0x4cc2581D88cFeCaf7C192Cae437d6aE9125AEB4e',
+    bountyFactory: '0xb132041Eac1FAFD7048FFfAB717b19851A3c40a0',
+    erc20Reputation: '0xe4A22F5F93154C693B4F0EbE48030D5250264e2c',
+    erc721KYH: '0x6ed7c252Af755CBb04733409561e527Bac7A4d89',
   },
   80001: {
-    bountyFactory: '0x22d7154ad3410d4832Ad5b370C3d28332BF0E776',
-    erc20Reputation: '0x6fEA1eaDEdA1C649E6C28c262B75552A0c70c9D3',
-    erc721KYH: '0x29f03F66721CdC3a9738C798b5C6060adeD4cf17',
+    bountyFactory: '0x4E1e624b8855C31A0eB875cf6ef9361997C66D1C',
+    erc20Reputation: '0xB4ebEe047BB8DE961a95D186FE4e7db60cC22d76',
+    erc721KYH: '0x02090582A174CDaeF5277242f8F5410eF1e3DF88',
   },
   // scroll
   534351: {
-    bountyFactory: '0x22d7154ad3410d4832Ad5b370C3d28332BF0E776',
-    erc20Reputation: '0x6fEA1eaDEdA1C649E6C28c262B75552A0c70c9D3',
-    erc721KYH: '0x29f03F66721CdC3a9738C798b5C6060adeD4cf17',
+    bountyFactory: '0x4E1e624b8855C31A0eB875cf6ef9361997C66D1C',
+    erc20Reputation: '0xB4ebEe047BB8DE961a95D186FE4e7db60cC22d76',
+    erc721KYH: '0x02090582A174CDaeF5277242f8F5410eF1e3DF88',
   },
   // mantle
   5001: {
-    bountyFactory: '0x22d7154ad3410d4832Ad5b370C3d28332BF0E776',
-    erc20Reputation: '0x6fEA1eaDEdA1C649E6C28c262B75552A0c70c9D3',
-    erc721KYH: '0x29f03F66721CdC3a9738C798b5C6060adeD4cf17',
+    bountyFactory: '0x4E1e624b8855C31A0eB875cf6ef9361997C66D1C',
+    erc20Reputation: '0xB4ebEe047BB8DE961a95D186FE4e7db60cC22d76',
+    erc721KYH: '0x02090582A174CDaeF5277242f8F5410eF1e3DF88',
   },
 }

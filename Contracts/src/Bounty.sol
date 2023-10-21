@@ -14,6 +14,7 @@ contract Bounty is Ownable {
     error Bounty__NotEnded();
     error Bounty__Ended();
     error Bounty__AlreadyCompleted();
+    error Bounty__InvalidWinner();
 
     enum State {
         Active,
@@ -93,6 +94,15 @@ contract Bounty is Ownable {
         }
     }
 
+    function _addressIncludedInSubmissions(address _searchAddress) private view returns (bool) {
+        for (uint256 i = 0; i < submissionList.length; i++) {
+            if (submissionList[i].hacker == _searchAddress) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     function declareWinner(address payable hacker) external {
         if (msg.sender != i_resolver) {
             revert Bounty__UnauthorizedAccess();
@@ -102,6 +112,9 @@ contract Bounty is Ownable {
         }
         if (_state == State.Completed) {
             revert Bounty__AlreadyCompleted();
+        }
+        if (!_addressIncludedInSubmissions(hacker)) {
+            revert Bounty__InvalidWinner();
         }
         _state = State.Completed;
         Reputation reputation = Reputation(i_reputationToken);
@@ -176,5 +189,9 @@ contract Bounty is Ownable {
 
     function getBountyGroupChatId() external view returns (string memory) {
         return _groupChatId;
+    }
+
+    function getBountySubmissions() external view returns (Submission[] memory) {
+        return submissionList;
     }
 }
