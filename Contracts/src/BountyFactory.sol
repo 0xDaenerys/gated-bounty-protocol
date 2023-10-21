@@ -45,7 +45,7 @@ contract BountyFactory is Ownable {
 
     function declareBountyWinner(address BountyAddress, address payable winner) external {
         Bounty bounty = Bounty(BountyAddress);
-        if (msg.sender != bounty.owner() || msg.sender != owner()) {
+        if (msg.sender != bounty.owner() && msg.sender != owner()) {
             revert BountyFactory__UnauthorizedAccess();
         }
         bounty.declareWinner(winner);
