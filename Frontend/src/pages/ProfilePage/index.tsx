@@ -174,7 +174,7 @@ export const ProfilePage = () => {
                     {kyhName} 
                     <img className="h-[30px] self-center" src="assets/verifiedBadge.png" />
                   </span>
-                  <span className="self-left align-left w-fit bg-colorSecondaryDark text-colorPrimaryLight text-sm font-medium mr-2 px-2.5 py-0.5 rounded-lg border-2 border-colorPrimaryLight">{Number(profileInfo.reputationTokenBalance)} Reputation Token</span>
+                  <span className="self-left align-left w-fit bg-colorSecondaryDark text-colorPrimaryLight text-sm font-medium mr-2 px-2.5 py-0.5 rounded-lg border-2 border-colorPrimaryLight">{Number(profileInfo.reputationTokenBalance) / 1e18} Reputation Token</span>
                 </div>
               </div>
             :

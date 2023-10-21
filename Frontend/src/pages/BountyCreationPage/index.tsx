@@ -155,7 +155,7 @@ export const BountyCreationPage = () => {
         abi: BountyFactoryAbi,
         functionName: 'createBounty',
         args: [
-          +minReputation,
+          +minReputation * 10 ** 18,
           hackerKycChecked,
           metaData,
           startTimeStamp / 1000, // in seconds

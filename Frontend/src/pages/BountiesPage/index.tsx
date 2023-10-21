@@ -56,8 +56,6 @@ export const BountiesPage = () => {
   const { activeBounties, finishedBounties, upcomingBounties } = useContext(AppContext);
   useFetchBountiesData();
 
-  console.log(upcomingBounties);
-
   return (
     <Layout>
       <div className="flex flex-col">
