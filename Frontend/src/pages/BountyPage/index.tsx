@@ -28,7 +28,7 @@ export const BountyPage = () => {
 
   const addSubmission = async (event: FormEvent) => {
     event.preventDefault();
-    
+
     try {
       const bountyContractAddress = bountyId;
 
@@ -50,7 +50,7 @@ export const BountyPage = () => {
       alert('Please connect your wallet first')
       return
     }
-    
+
     try {
       const chainId: ChainId = (await walletClient.getChainId()) as ChainId
       const bountyFactoryContractAddress = CONTRACTS[chainId].bountyFactory;
@@ -102,8 +102,8 @@ export const BountyPage = () => {
         // Render the content once loading is complete
         <div className="pt-16">
           <div className="flex gap-10">
-            <div 
-              className="flex grow drop-shadow-2xl bg-colorSecondaryDark items-center gap-10 p-4 py-10 rounded-md font-medium text-md text-white" 
+            <div
+              className="flex grow drop-shadow-2xl bg-colorSecondaryDark items-center gap-10 p-4 py-10 rounded-md font-medium text-md text-white"
             >
               <div className="flex flex-col px-5 w-full text-left gap-4">
                 <span className="text-5xl font-bold text-colorPrimaryLight">Bounty Details</span>
@@ -115,24 +115,24 @@ export const BountyPage = () => {
                 <span className="text-2xl font-bold text-colorPrimaryLight"><span className="text-white font-medium">Status:</span> {bountyStatus}</span>
               </div>
             </div>
-            <div
-              className="flex bg-colorSecondaryDark drop-shadow-2xl items-center gap-10 py-4 rounded-md font-medium text-md text-white min-w-[400px] h-[200px]"
-            >
-              {bountyStatus === "Active" 
-                ?
+            {bountyStatus === "Active"
+              ?
+              <div
+                className="flex bg-colorSecondaryDark drop-shadow-2xl items-center gap-10 py-4 rounded-md font-medium text-md text-white min-w-[400px] h-[200px]"
+              >
                 <form className="px-5 w-full" onSubmit={addSubmission}>
                   <div className="mb-6">
                     <label htmlFor="githubRepoUrl" className="block mb-2 text-md font-semibold text-white text-left">
-                        GitHub Repo URL
+                      GitHub Repo URL
                     </label>
                     <input
-                        type="text"
-                        id="githubRepoUrl"
-                        className="bg-colorSecondaryLight border-2 border-colorPrimaryLight text-colorPrimaryLight text-md font-semibold rounded-lg focus:border-colorPrimaryLight focus:outline-colorPrimaryLight block w-full p-2.5 placeholder-gray-400"
-                        placeholder="https://github.com/username/reponame"
-                        value={submissionGithubRepoUrl}
-                        onChange={(e) => setSubmissionGithubRepoUrl(e.target.value)}
-                        required
+                      type="text"
+                      id="githubRepoUrl"
+                      className="bg-colorSecondaryLight border-2 border-colorPrimaryLight text-colorPrimaryLight text-md font-semibold rounded-lg focus:border-colorPrimaryLight focus:outline-colorPrimaryLight block w-full p-2.5 placeholder-gray-400"
+                      placeholder="https://github.com/username/reponame"
+                      value={submissionGithubRepoUrl}
+                      onChange={(e) => setSubmissionGithubRepoUrl(e.target.value)}
+                      required
                     />
                   </div>
                   <button
@@ -142,15 +142,19 @@ export const BountyPage = () => {
                     Submit
                   </button>
                 </form>
-                :
+              </div>
+              :
               (bountyStatus === "Finished" && address && isAddressEqual(address, bountyData.creator as any) && bountyData.state === 0)
                 ?
-                <form className="px-5 w-full" onSubmit={declareWinner}>
-                  <div className="mb-6">
-                    <label htmlFor="githubRepoUrl" className="block mb-2 text-md font-semibold text-white text-left">
+                <div
+                  className="flex bg-colorSecondaryDark drop-shadow-2xl items-center gap-10 py-4 rounded-md font-medium text-md text-white min-w-[400px] h-[200px]"
+                >
+                  <form className="px-5 w-full" onSubmit={declareWinner}>
+                    <div className="mb-6">
+                      <label htmlFor="githubRepoUrl" className="block mb-2 text-md font-semibold text-white text-left">
                         Hacker Address
-                    </label>
-                    <input
+                      </label>
+                      <input
                         type="text"
                         id="githubRepoUrl"
                         className="bg-colorSecondaryLight border-2 border-colorPrimaryLight text-colorPrimaryLight text-md font-semibold rounded-lg focus:border-colorPrimaryLight focus:outline-colorPrimaryLight block w-full p-2.5 placeholder-gray-400"
@@ -158,30 +162,34 @@ export const BountyPage = () => {
                         value={winnerAddress}
                         onChange={(e) => setWinnerAddress(e.target.value)}
                         required
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    className="bg-colorPrimaryLight text-colorSecondaryDark py-3 px-5 text-lg hover:bg-colorPrimaryLight hover:opacity-75 hover:text-colorSecondaryDark hover:cursor-pointer"
-                  >
-                    Declare Winner
-                  </button>
-                </form>
-                :
-              (bountyStatus === "Finished" && bountyData.state === 1) 
-                ?
-                <div className="flex flex-col px-5 w-full">
-                  <span className="text-3xl font-bold text-colorPrimaryLight text-left">Winner</span>
-                  <span className="text-2xl font-medium py-5 text-center">{bountyData.winner || winnerAddress}</span>
+                      />
+                    </div>
+                    <button
+                      type="submit"
+                      className="bg-colorPrimaryLight text-colorSecondaryDark py-3 px-5 text-lg hover:bg-colorPrimaryLight hover:opacity-75 hover:text-colorSecondaryDark hover:cursor-pointer"
+                    >
+                      Declare Winner
+                    </button>
+                  </form>
                 </div>
                 :
-                <></>
-              }
-            </div>
+                (bountyStatus === "Finished" && bountyData.state === 1)
+                  ?
+                  <div
+                    className="flex bg-colorSecondaryDark drop-shadow-2xl items-center gap-10 py-4 rounded-md font-medium text-md text-white min-w-[400px] h-[200px]"
+                  >
+                    <div className="flex flex-col px-5 w-full">
+                      <span className="text-3xl font-bold text-colorPrimaryLight text-left">Winner</span>
+                      <span className="text-2xl font-medium py-5 text-center">{bountyData.winner || winnerAddress}</span>
+                    </div>
+                  </div>
+                  :
+                  <></>
+            }
           </div>
           {bountyStatus !== "Upcoming" && bountyData.submissions.length !== 0 &&
-            <div 
-              className="flex grow drop-shadow-2xl bg-colorSecondaryDark items-center gap-10 py-4 px-4 my-10 rounded-md font-medium text-md text-white" 
+            <div
+              className="flex grow drop-shadow-2xl bg-colorSecondaryDark items-center gap-10 py-4 px-4 my-10 rounded-md font-medium text-md text-white"
             >
               <div className="flex flex-col px-5 w-full text-left gap-4">
                 <span className="text-3xl font-bold text-colorPrimaryLight pb-5">Submissions</span>
@@ -190,7 +198,7 @@ export const BountyPage = () => {
                     bountyData.submissions.map((submission, index) => {
                       return (
                         <div className="flex flex-col drop-shadow-2xl bg-colorSecondaryLight items-start gap-2 text-left align-left p-4 rounded-md font-medium text-md text-white">
-                          <span className="text-2xl font-bold text-colorPrimaryLight"><span className="text-white font-medium">S.No:</span> {index+1}</span>
+                          <span className="text-2xl font-bold text-colorPrimaryLight"><span className="text-white font-medium">S.No:</span> {index + 1}</span>
                           <span className="text-2xl font-bold text-colorPrimaryLight"><span className="text-white font-medium">User Address:</span> {submission.hacker}</span>
                           <span className="text-2xl font-bold text-colorPrimaryLight"><span className="text-white font-medium">Submission:</span> {submission.submissionLink}</span>
                         </div>
@@ -204,7 +212,7 @@ export const BountyPage = () => {
           <div className="h-[600px] my-10">
             {address && walletClient &&
               <ChatUIProvider account={address} signer={walletClient} env={ENV.STAGING}>
-                <ChatViewComponent 
+                <ChatViewComponent
                   chatId={bountyData.groupChatId}
                   isConnected={true}
                 />
