@@ -12,6 +12,9 @@ export interface IBounty {
   isKYHRequired: boolean;
   groupChatId: string;
   bountyLevel: string;
+  state: number;
+  winner: string;
+  submissions: Array<{ hacker: string, submissionLink: string }>;
 };
 
 export type BountiesList = Record<string, IBounty>;

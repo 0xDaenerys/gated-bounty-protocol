@@ -69,6 +69,18 @@ export const useFetchBountiesData = () => {
                 {
                   ...bountyContract,
                   functionName: 'getBountyLevel'
+                },
+                {
+                  ...bountyContract,
+                  functionName: 'getBountyState'
+                },
+                {
+                  ...bountyContract,
+                  functionName: 'getWinnerAddress'
+                },
+                {
+                  ...bountyContract,
+                  functionName: 'getBountySubmissions'
                 }
               ]
             });
@@ -84,7 +96,10 @@ export const useFetchBountiesData = () => {
               requiredReputationToken: Number(contractData[3].result),
               isKYHRequired: contractData[4].result as any,
               groupChatId: contractData[6].result as any,
-              bountyLevel: BOUNTY_LEVEL[contractData[8].result as any]
+              bountyLevel: BOUNTY_LEVEL[contractData[8].result as any],
+              state: contractData[9].result as any,
+              winner: contractData[10].result as any,
+              submissions: contractData[11].result as any
             };
       
             const currentTimestamp = Date.now();
