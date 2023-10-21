@@ -6,7 +6,7 @@ import { timestampToDateTimeStrings } from "../../helpers";
 import { formatEther, isAddressEqual } from "viem";
 import { CURRENCY } from "../../config/chains";
 import { useAccount, useNetwork, useWalletClient } from "wagmi";
-import { ChatUIProvider, ChatViewComponent } from '@pushprotocol/uiweb';
+import { ChatUIProvider, ChatViewComponent, ENV } from '@pushprotocol/uiweb';
 import { useFetchBountiesData } from "../../hooks";
 import { BountyAbi, BountyFactoryAbi } from "../../abi";
 import { waitForTransaction, writeContract } from "wagmi/actions";
@@ -203,7 +203,7 @@ export const BountyPage = () => {
           }
           <div className="h-[600px] my-10">
             {address && walletClient &&
-              <ChatUIProvider account={address} signer={walletClient}>
+              <ChatUIProvider account={address} signer={walletClient} env={ENV.STAGING}>
                 <ChatViewComponent 
                   chatId={bountyData.groupChatId}
                   isConnected={true}
