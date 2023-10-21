@@ -158,8 +158,8 @@ export const BountyCreationPage = () => {
           +minReputation,
           hackerKycChecked,
           metaData,
-          startTimeStamp,
-          endTimeStamp,
+          startTimeStamp / 1000, // in seconds
+          endTimeStamp / 1000, // in seconds
           chatId,
         ],
         value: parseGwei(rewards),
