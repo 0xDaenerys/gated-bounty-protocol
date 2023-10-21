@@ -1,5 +1,6 @@
 import { RouterProvider, createHashRouter } from 'react-router-dom';
 import { BountiesPage, BountyCreationPage, BountyPage, HomePage, ProfilePage } from './pages';
+import { useFetchBountiesData } from './hooks';
 
 const router = createHashRouter([
   {
@@ -25,5 +26,7 @@ const router = createHashRouter([
 ]);
 
 export const Interface = () => {
+    useFetchBountiesData();
+
     return <RouterProvider router={router} />
 };

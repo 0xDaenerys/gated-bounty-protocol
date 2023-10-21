@@ -7,19 +7,19 @@ import { formatEther } from "viem";
 import { CURRENCY } from "../../config/chains";
 import { useAccount, useNetwork, useWalletClient } from "wagmi";
 import { ChatUIProvider, ChatViewComponent } from '@pushprotocol/uiweb';
+import { useFetchBountiesData } from "../../hooks";
 
 export const BountyPage = () => {
   const { bounties } = useAppContext(); // Use the AppContext to access data
   const { bountyId } = useParams(); // Get the bountyId from the URL
   const { chain } = useNetwork();
+  useFetchBountiesData();
   const { address } = useAccount();
   const { data: walletClient } = useWalletClient();
   const [isLoading, setIsLoading] = useState(true);
   const [bountyData, setBountyData] = useState<IBounty>({} as IBounty);
   const [bountyStatus, setBountyStatus] = useState('');
   const [submissionGithubRepoUrl, setSubmissionGithubRepoUrl] = useState('');
-
-  console.log(bountyStatus);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();

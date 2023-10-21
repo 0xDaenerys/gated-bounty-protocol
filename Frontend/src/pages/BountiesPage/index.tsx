@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { formatEther } from "viem";
 import { CURRENCY } from "../../config/chains";
 import { useNetwork } from "wagmi";
+import { useFetchBountiesData } from "../../hooks";
 
 export const BountyRow = ({ bounty, index }: {
   bounty: IBounty
@@ -53,6 +54,7 @@ export const BountyRow = ({ bounty, index }: {
 
 export const BountiesPage = () => {
   const { activeBounties, finishedBounties, upcomingBounties } = useContext(AppContext);
+  useFetchBountiesData();
 
   console.log(upcomingBounties);
 
