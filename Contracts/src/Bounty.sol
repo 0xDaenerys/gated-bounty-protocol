@@ -70,25 +70,24 @@ contract Bounty is Ownable {
         KnowYourHacker kyh = KnowYourHacker(kyhToken);
 
         /// @dev - Creator should atleast have the required reputation points and KYH NFT if required
-        if (i_requiredReputation > reputation.balanceOf(creator) || (requiredKYH && kyh.balanceOf(creator) == 0)) {
+        if (requiredReputation > reputation.balanceOf(creator) || (requiredKYH && kyh.balanceOf(creator) == 0)) {
             revert Bounty__InvalidGating();
         }
 
         i_resolver = msg.sender;
         i_requiredReputation = requiredReputation;
+        i_reputationToken = reputationToken;
+        i_kyhToken = kyhToken;
         i_requiredKYH = requiredKYH;
         _metaData = metadata;
         _startTime = startTime;
         _endTime = endTime;
         _state = State.Active;
         _groupChatId = groupChatId;
-        _decideBountyLevel();
-    }
 
-    function _decideBountyLevel() private {
-        if (i_requiredReputation <= MIN_INTERMEDIATE_REPUTATION) {
+        if (i_requiredReputation <= MIN_INTERMEDIATE_REPUTATION * 10 ** 18) {
             _level = Level.Beginner;
-        } else if (i_requiredReputation <= MIN_ADVANCE_REPUTATION) {
+        } else if (i_requiredReputation <= MIN_ADVANCE_REPUTATION * 10 ** 18) {
             _level = Level.Intermediate;
         } else {
             _level = Level.Advanced;
