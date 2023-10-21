@@ -8,6 +8,8 @@ import { CURRENCY } from "../../config/chains";
 import { useAccount, useNetwork, useWalletClient } from "wagmi";
 import { ChatUIProvider, ChatViewComponent } from '@pushprotocol/uiweb';
 import { useFetchBountiesData } from "../../hooks";
+import { BountyAbi } from "../../abi";
+import { writeContract } from "wagmi/actions";
 
 export const BountyPage = () => {
   const { bounties } = useAppContext(); // Use the AppContext to access data
@@ -21,12 +23,21 @@ export const BountyPage = () => {
   const [bountyStatus, setBountyStatus] = useState('');
   const [submissionGithubRepoUrl, setSubmissionGithubRepoUrl] = useState('');
 
-  const handleSubmit = (event: FormEvent) => {
+  const addSubmission = async (event: FormEvent) => {
     event.preventDefault();
-    const formData = {
-      submissionGithubRepoUrl
-    };
-    console.log('Form Data:', formData);
+    
+    try {
+      const bountyContractAddress = bountyId;
+
+      await writeContract({
+        address: bountyContractAddress as `0x${string}`,
+        abi: BountyAbi,
+        functionName: 'addSubmission',
+        args: [address, submissionGithubRepoUrl],
+      });
+    } catch (err) {
+      alert(err);
+    }
   };
 
   useEffect(() => {
@@ -77,7 +88,7 @@ export const BountyPage = () => {
             >
               {bountyStatus === "Active" 
                 ?
-                <form className="px-5 w-full" onSubmit={handleSubmit}>
+                <form className="px-5 w-full" onSubmit={addSubmission}>
                   <div className="mb-6">
                     <label htmlFor="githubRepoUrl" className="block mb-2 text-md font-semibold text-white text-left">
                         GitHub Repo URL

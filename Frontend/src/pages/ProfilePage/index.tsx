@@ -9,7 +9,7 @@ import { BountyFactoryAbi, Erc20ReputationAbi, Erc721KYHAbi } from "../../abi";
 import Blockies from 'react-blockies';
 import { writeContract } from "wagmi/actions";
 
-type ChainId = 5 | 80001 | 534351 | 5001;
+export type ChainId = 5 | 80001 | 534351 | 5001;
 const IMAGE_URI = "https://bafybeieqa3lrf3viuj5rkuhoiy2vitpz4yxmndk4v52kdh4jp544cw55va.ipfs.dweb.link/Verification_Badge.png";
 
 export const ProfilePage = () => {
