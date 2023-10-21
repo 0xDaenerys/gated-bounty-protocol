@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction, createContext, useContext, useEffect, useState } from 'react';
 import { readContracts, useNetwork } from 'wagmi';
-import { CONTRACTS } from '../config';
+import { BOUNTY_LEVEL, CONTRACTS } from '../config';
 import { readContract } from 'wagmi/actions';
 import { BountyAbi, BountyFactoryAbi } from '../abi';
 
@@ -15,6 +15,7 @@ export interface IBounty {
   requiredReputationToken: number;
   isKYHRequired: boolean;
   groupChatId: string;
+  bountyLevel: string;
 };
 
 export type BountiesList = Record<string, IBounty>;
@@ -128,6 +129,10 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
               ...bountyContract,
               functionName: 'owner',
             },
+            {
+              ...bountyContract,
+              functionName: 'getBountyLevel'
+            }
           ]
         });
   
@@ -141,7 +146,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
           endTimestamp: Number(contractData[2].result),
           requiredReputationToken: Number(contractData[3].result),
           isKYHRequired: contractData[4].result as any,
-          groupChatId: contractData[6].result as any
+          groupChatId: contractData[6].result as any,
+          bountyLevel: BOUNTY_LEVEL[contractData[8].result as any]
         };
   
         const currentTimestamp = Date.now();
