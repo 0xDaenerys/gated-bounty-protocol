@@ -185,17 +185,19 @@ export const BountyPage = () => {
             >
               <div className="flex flex-col px-5 w-full text-left gap-4">
                 <span className="text-3xl font-bold text-colorPrimaryLight pb-5">Submissions</span>
-                {
-                  bountyData.submissions.map((submission, index) => {
-                    return (
-                      <div className="flex gap-5 space-between">
-                        <span className="text-2xl font-bold text-colorPrimaryLight">{index}</span>
-                        <span className="text-2xl font-bold text-colorPrimaryLight">{submission.hacker}</span>
-                        <a className="text-2xl font-bold text-colorPrimaryLight cursor-pointer" href={submission.submissionLink} target="_blank">Submission Link</a>
-                      </div>
-                    )
-                  })
-                }
+                <div className="flex flex-col gap-3">
+                  {
+                    bountyData.submissions.map((submission, index) => {
+                      return (
+                        <div className="flex flex-col drop-shadow-2xl bg-colorSecondaryLight items-start gap-2 text-left align-left p-4 rounded-md font-medium text-md text-white">
+                          <span className="text-2xl font-bold text-colorPrimaryLight"><span className="text-white font-medium">S.No:</span> {index+1}</span>
+                          <span className="text-2xl font-bold text-colorPrimaryLight"><span className="text-white font-medium">User Address:</span> {submission.hacker}</span>
+                          <span className="text-2xl font-bold text-colorPrimaryLight"><span className="text-white font-medium">Submission:</span> {submission.submissionLink}</span>
+                        </div>
+                      )
+                    })
+                  }
+                </div>
               </div>
             </div>
           }
