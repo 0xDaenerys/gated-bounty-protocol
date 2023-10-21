@@ -33,7 +33,7 @@ export const BountyRow = ({ bounty, index }: {
     >
       <span className="min-w-max font-bold text-xl">{index}</span>
       <div className="flex flex-row gap-5 grow">
-        <div className="flex flex-col text-left ">
+        <div className="flex flex-col text-left max-w-[440px]">
           <span className="font-bold text-xl">{name}</span>
           <span>{description}</span>
         </div>

@@ -60,7 +60,7 @@ export const BountyPage = () => {
         <div className="pt-16">
           <div className="flex gap-10">
             <div 
-              className="flex grow bg-colorSecondaryDark items-center gap-10 p-4 py-10 rounded-md font-medium text-md text-white" 
+              className="flex grow drop-shadow-2xl bg-colorSecondaryDark items-center gap-10 p-4 py-10 rounded-md font-medium text-md text-white" 
             >
               <div className="flex flex-col px-5 w-full text-left gap-4">
                 <span className="text-5xl font-bold text-colorPrimaryLight">Bounty Details</span>
@@ -73,7 +73,7 @@ export const BountyPage = () => {
               </div>
             </div>
             <div
-              className="flex bg-colorSecondaryDark items-center gap-10 py-4 rounded-md font-medium text-md text-white min-w-[400px] h-[200px]"
+              className="flex bg-colorSecondaryDark drop-shadow-2xl items-center gap-10 py-4 rounded-md font-medium text-md text-white min-w-[400px] h-[200px]"
             >
               {bountyStatus === "Active" 
                 ?

@@ -176,7 +176,7 @@ export const BountyCreationPage = () => {
 
   return (
     <Layout>
-      <div className="flex flex-col py-10 gap-5 bg-colorSecondaryDark w-11/12 sm:w-9/12 md:w-7/12 rounded-lg my-10 mx-auto">
+      <div className="flex drop-shadow-2xl flex-col py-10 gap-5 bg-colorSecondaryDark w-11/12 sm:w-9/12 md:w-7/12 rounded-lg my-10 mx-auto">
         <span className="text-6xl font-extrabold px-10 pb-5 text-center text-colorPrimaryLight">
           Create your Bounty
         </span>
