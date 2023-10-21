@@ -4,7 +4,7 @@ import { BountyRow } from "..";
 import { useAccount, useNetwork, useWalletClient } from "wagmi";
 import { FormEvent, useEffect, useState } from "react";
 import { CONTRACTS } from "../../config";
-import { readContract } from "wagmi/actions";
+import { readContract, waitForTransaction } from "wagmi/actions";
 import { BountyFactoryAbi, Erc20ReputationAbi, Erc721KYHAbi } from "../../abi";
 import Blockies from 'react-blockies';
 import { writeContract } from "wagmi/actions";
@@ -110,12 +110,14 @@ export const ProfilePage = () => {
       const chainId: ChainId = (await walletClient.getChainId()) as ChainId
       const bountyFactoryContractAddress = CONTRACTS[chainId].bountyFactory
 
-      await writeContract({
+      const { hash } = await writeContract({
         address: bountyFactoryContractAddress,
         abi: BountyFactoryAbi,
         functionName: 'verifyUser',
         args: [kyhName],
       });
+
+      await waitForTransaction({ hash: hash });
 
       await fetchTokenData();
 

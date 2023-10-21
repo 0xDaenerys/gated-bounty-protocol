@@ -17,7 +17,7 @@ export const BountyPage = () => {
   const { bounties } = useAppContext(); // Use the AppContext to access data
   const { bountyId } = useParams(); // Get the bountyId from the URL
   const { chain } = useNetwork();
-  useFetchBountiesData();
+  const { fetchBountiesData } = useFetchBountiesData();
   const { address } = useAccount();
   const { data: walletClient } = useWalletClient();
   const [isLoading, setIsLoading] = useState(true);
@@ -32,12 +32,15 @@ export const BountyPage = () => {
     try {
       const bountyContractAddress = bountyId;
 
-      await writeContract({
+      const { hash } = await writeContract({
         address: bountyContractAddress as `0x${string}`,
         abi: BountyAbi,
         functionName: 'addSubmission',
         args: [address, submissionGithubRepoUrl],
       });
+      await waitForTransaction({ hash: hash });
+
+      await fetchBountiesData();
     } catch (err) {
       alert(err);
     }
@@ -62,6 +65,8 @@ export const BountyPage = () => {
         args: [bountyData.id, winnerAddress],
       });
       await waitForTransaction({ hash: hash });
+
+      await fetchBountiesData();
 
       setBountyData({
         ...bountyData,
@@ -180,7 +185,7 @@ export const BountyPage = () => {
                   >
                     <div className="flex flex-col px-5 w-full">
                       <span className="text-3xl font-bold text-colorPrimaryLight text-left">Winner</span>
-                      <span className="text-2xl font-medium py-5 text-center">{bountyData.winner || winnerAddress}</span>
+                      <span className="text-2xl font-medium py-5 break-words text-left">{bountyData.winner || winnerAddress}</span>
                     </div>
                   </div>
                   :
