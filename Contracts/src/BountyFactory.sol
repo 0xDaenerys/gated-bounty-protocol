@@ -49,6 +49,15 @@ contract BountyFactory is Ownable {
             revert BountyFactory__UnauthorizedAccess();
         }
         bounty.declareWinner(winner);
+
+        uint256 level = uint256(bounty.getBountyLevel());
+        if (level == 0) {
+            i_token.mint(winner, 100 * 10 ** 18);
+        } else if (level == 1) {
+            i_token.mint(winner, 300 * 10 ** 18);
+        } else {
+            i_token.mint(winner, 500 * 10 ** 18);
+        }
     }
 
     /**

@@ -118,15 +118,6 @@ contract Bounty is Ownable {
         }
         _winner = hacker;
         _state = State.Completed;
-        Reputation reputation = Reputation(i_reputationToken);
-
-        if (_level == Level.Beginner) {
-            reputation.mint(hacker, 100 * 10 ** 18);
-        } else if (_level == Level.Intermediate) {
-            reputation.mint(hacker, 300 * 10 ** 18);
-        } else {
-            reputation.mint(hacker, 500 * 10 ** 18);
-        }
 
         // Use the call method to transfer the funds
         (bool success,) = hacker.call{value: address(this).balance}("");

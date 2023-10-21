@@ -6,9 +6,9 @@ export const CONTRACTS: {
   }
 } = {
   5: {
-    bountyFactory: '0xBC6644eC14F73ADaA6F0eFE01c8fb5b2973aC12c',
-    erc20Reputation: '0xEDCDDD3d4e1ab30D49b9231dacdB6C0b2C4C7143',
-    erc721KYH: '0xF6a5238B986b1CdbCFd8EddDc4487591865a2f76',
+    bountyFactory: '0xa0E3d531bAb9d9746e4b1B1206a81c1B4EE5563B',
+    erc20Reputation: '0xdf1833ace7f36933533efe6E95B99e06D3816429',
+    erc721KYH: '0x3613ab063e824D6ab8d98589dfe0efc2dc5D31d7',
   },
   80001: {
     bountyFactory: '0x9DFF4642BeDC496678865bdA32aa26B13edC2A97',
