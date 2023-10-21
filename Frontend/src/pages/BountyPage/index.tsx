@@ -112,6 +112,7 @@ export const BountyPage = () => {
               <ChatUIProvider account={address} signer={walletClient}>
                 <ChatViewComponent 
                   chatId={bountyData.groupChatId}
+                  isConnected={true}
                 />
               </ChatUIProvider>
             }

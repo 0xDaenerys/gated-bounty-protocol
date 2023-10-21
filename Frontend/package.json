@@ -19,6 +19,7 @@
     "@rainbow-me/rainbowkit": "^1.1.1",
     "buffer": "^6.0.3",
     "react": "^18.2.0",
+    "react-blockies": "^1.4.1",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.16.0",
     "styled-components": "^6.1.0",
@@ -27,6 +28,7 @@
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
+    "@types/react-blockies": "^1.4.3",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
