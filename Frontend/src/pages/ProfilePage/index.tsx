@@ -170,12 +170,12 @@ export const ProfilePage = () => {
             ?
               <div className="flex self-center gap-5">
                 <div className="flex flex-col gap-3 self-center text-left">
-                  <span className="text-4xl font-extrabold self-center text-colorPrimaryLight">
-                    {kyhName}
+                  <span className="text-4xl font-extrabold self-center flex gap-3 text-colorPrimaryLight">
+                    {kyhName} 
+                    <img className="h-[30px] self-center" src="assets/verifiedBadge.png" />
                   </span>
                   <span className="self-left align-left w-fit bg-colorSecondaryDark text-colorPrimaryLight text-sm font-medium mr-2 px-2.5 py-0.5 rounded-lg border-2 border-colorPrimaryLight">{Number(profileInfo.reputationTokenBalance)} Reputation Token</span>
                 </div>
-                <img className="h-[50px] self-center" src="assets/verifiedBadge.png" />
               </div>
             :
               <div className="flex flex-row">
