@@ -1,5 +1,5 @@
 import { RouterProvider, createHashRouter } from 'react-router-dom';
-import { BountiesPage, BountyCreationPage, BountyPage, HomePage, ProfilePage } from './pages';
+import { BountiesPage, BountyCreationPage, BountyPage, HomePage, ProfilePage, SpacesPage } from './pages';
 import { useFetchBountiesData } from './hooks';
 
 const router = createHashRouter([
@@ -22,6 +22,10 @@ const router = createHashRouter([
   {
     path: "/profile",
     element: <ProfilePage />
+  },
+  {
+    path: "/spaces",
+    element: <SpacesPage />
   }
 ]);
 

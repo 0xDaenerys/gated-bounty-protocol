@@ -68,6 +68,10 @@ export const Header = () => {
           Profile
           <Link to="/profile" />
         </button>
+        <button onClick={() => handleNavigate("/spaces")}>
+          Spaces
+          <Link to="/spaces" />
+        </button>
         <button id="sdk-trigger-id" className="hover:bg-colorPrimaryLight hover:border-none hover:text-colorSecondaryDark hover:outline-none">
           <div className="relative inline-flex w-fit">
             <div
