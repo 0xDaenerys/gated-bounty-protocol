@@ -48,7 +48,7 @@ export const HomePage = () => {
             </button>
           </div>
         </div>
-        <img className="h-[550px]" src="assets/random.png" />
+        <img className="h-[550px] self-center" src="assets/random.png" />
       </div>
     </Layout>
   )
