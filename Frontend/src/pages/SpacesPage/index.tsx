@@ -45,16 +45,20 @@ export const SpacesPage = () => {
             <span className="h-10 animate-bounce text-5xl font-bold">Loading...</span>
             </div>
         ) :
-            
                 <SpacesUIProvider spaceUI={spaceUI || ""} theme={darkTheme}>
-                    <div className="flex flex-col gap-10 mt-10">
-                        <div className="flex gap-5">
-                            <spaceUI.SpaceCreationButtonWidget>
-                            <button className="h-full py-3 bg-[#D53A94] text-white px-5 rounded-xl">Create your Space</button>
-                            </spaceUI.SpaceCreationButtonWidget>
-                            <spaceUI.SpaceInvites>
-                                <button className="h-full py-3 bg-[#D53A94] text-white px-5 rounded-xl">Space Invites</button>
-                            </spaceUI.SpaceInvites>
+                    <div className="flex flex-col gap-3 mt-10">
+                        <div className="flex justify-between">
+                            <span className="text-6xl font-extrabold text-left mb-5">
+                                GBP Spaces
+                            </span>
+                            <div className="flex gap-5 self-center">
+                                <spaceUI.SpaceCreationButtonWidget>
+                                <button className="h-full py-3 bg-[#D53A94] text-white px-5 rounded-xl">Create your Space</button>
+                                </spaceUI.SpaceCreationButtonWidget>
+                                <spaceUI.SpaceInvites>
+                                    <button className="h-full py-3 bg-[#D53A94] text-white px-5 rounded-xl">Space Invites</button>
+                                </spaceUI.SpaceInvites>
+                            </div>
                         </div>
                         <div className="h-[600px] rounded-lg overflow-scroll">
                             <spaceUI.SpaceFeed onBannerClickHandler={(spaceId: string) => {
