@@ -19,7 +19,7 @@ export const Header = () => {
       // 'your connected wallet address'
       EmbedSDK.init({
         chainId: 5,
-        headerText: 'Hello DeFi', // optional
+        headerText: 'Gated Bounty Protocol', // optional
         targetID: 'sdk-trigger-id', // mandatory
         appName: 'consumerApp', // mandatory
         user: address, // mandatory
@@ -30,6 +30,7 @@ export const Header = () => {
           unreadIndicatorPosition: 'top-right',
         },
         theme: 'dark',
+        isInitialized: true,
         onOpen: () => {
           console.log('-> client dApp onOpen callback');
         },
