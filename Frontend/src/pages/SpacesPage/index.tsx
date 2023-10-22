@@ -49,9 +49,11 @@ export const SpacesPage = () => {
                 <SpacesUIProvider spaceUI={spaceUI || ""} theme={darkTheme}>
                     <div className="flex flex-col gap-10 mt-10">
                         <div className="flex gap-5">
-                            <spaceUI.SpaceCreationButtonWidget />
+                            <spaceUI.SpaceCreationButtonWidget>
+                            <button className="h-full py-3 bg-[#D53A94] text-white px-5 rounded-xl">Create your Space</button>
+                            </spaceUI.SpaceCreationButtonWidget>
                             <spaceUI.SpaceInvites>
-                                <button className="h-full bg-[#D53A94] text-white px-5 rounded-xl">Space Invites</button>
+                                <button className="h-full py-3 bg-[#D53A94] text-white px-5 rounded-xl">Space Invites</button>
                             </spaceUI.SpaceInvites>
                         </div>
                         <div className="h-[600px] rounded-lg overflow-scroll">
