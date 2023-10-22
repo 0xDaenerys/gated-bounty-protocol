@@ -1,12 +1,11 @@
 import { Layout } from "../../components/Layout";
-import { useAccount, useNetwork, useWalletClient } from "wagmi";
+import { useAccount, useWalletClient } from "wagmi";
 import { useMemo, useState } from "react";
 import { ENV, SpacesUI, SpacesUIProvider } from "@pushprotocol/uiweb";
 import { ISpacesTheme } from "@pushprotocol/uiweb/lib/components/space/theme";
 
 export const SpacesPage = () => {
   const { address } = useAccount();
-  const { chain } = useNetwork();
   const { data: walletClient } = useWalletClient();
   const [spaceId, setSpaceId] = useState<string>('');
 
