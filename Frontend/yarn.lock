@@ -1658,6 +1658,13 @@
     socket.io-client "^4.5.2"
     tslib "^2.3.0"
 
+"@pushprotocol/uiembed@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@pushprotocol/uiembed/-/uiembed-0.2.0.tgz#ffdce8d2265f44967f01fb31870fe20aa4cc5d28"
+  integrity sha512-G7mbpb3sFua7Qw+zx1IPBGmY6k62oSVIgGuTK8MaHw5DX8EWI9swJeWO9J93lAgkzPAhlqMolTaAudvKd3SzMw==
+  dependencies:
+    tslib "^2.3.0"
+
 "@pushprotocol/uiweb@0.0.1-alpha.22":
   version "0.0.1-alpha.22"
   resolved "https://registry.yarnpkg.com/@pushprotocol/uiweb/-/uiweb-0.0.1-alpha.22.tgz#e860e6dacc40e1a7ecf34c194ef6092ee35710bf"
